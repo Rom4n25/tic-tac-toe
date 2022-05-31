@@ -13,4 +13,6 @@ const displayController = (() => {
 const Player = () =>{
     const name = document.getElementById("player_name");
     const marker = document.querySelector(".marker");
+
+    return {name,marker};
 }

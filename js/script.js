@@ -1,29 +1,38 @@
 const displayController = (() => {
+    const start = () =>{
+        const player = Player();
+        console.log("Player name:" + player.name);
+        console.log("Player marker:" + player.marker);
+        gameBoard.board = [];
+       
+    }
     
-    return {};
+    
+    const selectBox = (box) =>{
+        console.log(box.id);
+    
+      
+    };
+    
+    return {selectBox,start};
 })();
 
 const gameBoard = (() => {
-    let board = ["X","X","X","X","X","O","O","O","O"];
-    const boxOne = document.getElementById("1");
-    const boxTwo = document.getElementById("2");
-    const boxThree = document.getElementById("3");
-    const boxFour = document.getElementById("4");
-    const boxFive = document.getElementById("5");
-    const boxSix = document.getElementById("6");
-    const boxSeven = document.getElementById("7");
-    const boxEight = document.getElementById("8");
-    const boxNine = document.getElementById("9");
-    const boxes = [boxOne,boxTwo,boxThree,boxFour,boxFive,boxSix,boxSeven,boxEight,boxNine];
+    
+    const startBtn = document.getElementById("start");
+    const boxes = document.querySelectorAll(".marker-box");
 
-    boxes.forEach(box => box.addEventListener("click", () => console.log(box)));
+    let board = ["X","X","X","X","X","O","O","O","O"];
+    
+    startBtn.addEventListener("click",displayController.start);
+    
+    boxes.forEach(box => box.addEventListener("click", () => {displayController.selectBox(box)}));
 
     return {board};
 })();
 
 const Player = () =>{
-    const name = document.getElementById("player_name");
-    const marker = document.querySelector(".marker");
-
+    const name = document.getElementById("player_name").value;
+    const marker = document.querySelector('input[name="marker"]:checked').value;
     return {name,marker};
 }

@@ -10,9 +10,13 @@
 <body>
     
     <div class="player-details">
+        <label for="name">Player name:</label>
         <input type="text" name="name" id="player_name">
-        <button class="marker">X</button>
-        <button class="marker">O</button>
+        <label for="X">X</label>
+        <input type="radio" name="marker" id="X" class="player_marker" value="X">
+        <label for="Y">Y</label>
+        <input type="radio" name="marker" id="Y" class="player_marker" value="Y">
+        <button id="start">Start</button>
     </div>
 
     <div class="game-board">

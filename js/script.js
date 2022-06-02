@@ -19,13 +19,12 @@ const game = (() => {
     const checkWin = () => {
     
         for (let i = 0; i<3; i++){
-            console.log(board);
-            if((board[i] == board[i+3]) && (board[i+3] == board[i+6]) && (board[i+3]!=undefined)){
+            if((board[i] == board[i+3]) && (board[i+3] == board[i+6]) && (board[i+3] != undefined)){
                 return true;
-            }else if(((board[3*i] == board[(3*i)+1]) && (board[(3*i)+1] == board[(3*i)+2])) && (board[(3*i)+1]!=undefined)){
+            }else if(((board[3*i] == board[(3*i)+1]) && (board[(3*i)+1] == board[(3*i)+2])) && (board[(3*i)+1] != undefined)){
                 return true;
-            }else if(i!=1){
-                if((board[i] == board[4]) && (board[4] == board[8-i]) && (board[4]!=undefined)){
+            }else if(i != 1){
+                if((board[i] == board[4]) && (board[4] == board[8-i]) && (board[4] != undefined)){
                     return true;
                 };
             };
@@ -35,11 +34,12 @@ const game = (() => {
 
     function computerMove(marker){
 
-      while(true) {
-        let randomNumber = Math.round(Math.random()*8);
-        if(board[randomNumber]==undefined){
-            board[randomNumber] = marker;
-            displayController.computerPlaceMarker(randomNumber,marker);
+      while(true){
+        let randomIndex = Math.round(Math.random()*8);
+
+        if(board[randomIndex]==undefined){
+            board[randomIndex] = marker;
+            displayController.computerPlaceMarker(randomIndex,marker);
             break;
         }else{
             continue;
@@ -48,46 +48,47 @@ const game = (() => {
     }
 
     function start(){
-        const player = Player();
+        
         let computerMarker = "";
 
-        if(player.marker=="X"){
-            computerMarker = "O";
-        }else{
-            computerMarker = "X"
-        };
+        switch(Player().marker){
+            case "X" :  
+                computerMarker = "O";
+                break;
+            case "O" :  
+                computerMarker = "X";
+                break;
+        }
 
         markerBoxes.forEach(box => box.addEventListener("click", () => {
             if(board[box.id]==undefined){
-                displayController.playerPlaceMarker(box,player.marker);
-                board[box.id] = player.marker;
-                
+                displayController.playerPlaceMarker(box,Player().marker);
+                board[box.id] = Player().marker;
+            
                 if(checkWin()){
                     console.log("You WIN!")
-                }else{
+                }else if(board.filter(s=>s!=undefined).length==9)
+                    console.log("TIE");
+                else{
                     computerMove(computerMarker);
+
                     if(checkWin()){
                         console.log("Computer WIN!")
-                    }else if(board.filter(s=>s!=undefined).length==8){
-                        console.log("TIE");
                     }
                 }
             }
-           
         }));
     } 
 
     const startBtn = document.getElementById("start");
+    startBtn.addEventListener("click",start);
+
     const markerBoxes = document.querySelectorAll(".marker-box");
 
-    startBtn.addEventListener("click",start);
-    
     return {markerBoxes};
 })();
 
 const Player = () =>{
     const marker = document.querySelector('input[name="marker"]:checked').value;
-    const name = document.getElementById("player_name").value;
-
-    return{name,marker};
+    return{marker};
 }

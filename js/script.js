@@ -2,7 +2,7 @@ const displayController = (() => {
 
     const computerPlaceMarker = (boxId,marker) =>{
         const box = document.getElementById(boxId.toString());
-        box.textContent=marker;
+        box.textContent = marker;
     }
 
     const playerPlaceMarker = (box,marker) =>{
@@ -22,25 +22,22 @@ const game = (() => {
             console.log(board);
             if((board[i] == board[i+3]) && (board[i+3] == board[i+6]) && (board[i+3]!=undefined)){
                 return true;
-            }else if((board[3*i] == board[(3*i)+1]) && (board[(3*i)+1] == board[(3*i)+2]) && (board[(3*i)+1]!=undefined)){
+            }else if(((board[3*i] == board[(3*i)+1]) && (board[(3*i)+1] == board[(3*i)+2])) && (board[(3*i)+1]!=undefined)){
                 return true;
             }else if(i!=1){
                 if((board[i] == board[4]) && (board[4] == board[8-i]) && (board[4]!=undefined)){
                     return true;
                 };
-            }else{
-                return false;
             };
         };
+        return false;
     };
-
-
 
     function computerMove(marker){
 
       while(true) {
-        let randomNumber = Math.round(Math.random()*9);
-        if(board[randomNumber]==null){
+        let randomNumber = Math.round(Math.random()*8);
+        if(board[randomNumber]==undefined){
             board[randomNumber] = marker;
             displayController.computerPlaceMarker(randomNumber,marker);
             break;
@@ -61,17 +58,23 @@ const game = (() => {
         };
 
         markerBoxes.forEach(box => box.addEventListener("click", () => {
-            displayController.playerPlaceMarker(box,player.marker);
-            board[box.id] = player.marker;
-            if(checkWin()){
-                console.log("You WIN!")
-            }else{
-                computerMove(computerMarker);
+            if(board[box.id]==undefined){
+                displayController.playerPlaceMarker(box,player.marker);
+                board[box.id] = player.marker;
+                
                 if(checkWin()){
-                    console.log("Computer WIN!")
+                    console.log("You WIN!")
+                }else{
+                    computerMove(computerMarker);
+                    if(checkWin()){
+                        console.log("Computer WIN!")
+                    }else if(board.filter(s=>s!=undefined).length==8){
+                        console.log("TIE");
+                    }
                 }
             }
-    }));
+           
+        }));
     } 
 
     const startBtn = document.getElementById("start");

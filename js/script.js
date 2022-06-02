@@ -16,6 +16,26 @@ const game = (() => {
 
     let board = [];
 
+    const checkWin = () => {
+    
+        for (let i = 0; i<3; i++){
+            console.log(board);
+            if((board[i] == board[i+3]) && (board[i+3] == board[i+6]) && (board[i+3]!=undefined)){
+                return true;
+            }else if((board[3*i] == board[(3*i)+1]) && (board[(3*i)+1] == board[(3*i)+2]) && (board[(3*i)+1]!=undefined)){
+                return true;
+            }else if(i!=1){
+                if((board[i] == board[4]) && (board[4] == board[8-i]) && (board[4]!=undefined)){
+                    return true;
+                };
+            }else{
+                return false;
+            };
+        };
+    };
+
+
+
     function computerMove(marker){
 
       while(true) {
@@ -43,8 +63,14 @@ const game = (() => {
         markerBoxes.forEach(box => box.addEventListener("click", () => {
             displayController.playerPlaceMarker(box,player.marker);
             board[box.id] = player.marker;
-            computerMove(computerMarker);
-            console.log(board);
+            if(checkWin()){
+                console.log("You WIN!")
+            }else{
+                computerMove(computerMarker);
+                if(checkWin()){
+                    console.log("Computer WIN!")
+                }
+            }
     }));
     } 
 

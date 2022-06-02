@@ -56,6 +56,10 @@ html,body{
 }
 
 .marker-box{
+	display:flex;
     background-color: orange;
     border: 1px solid black;
+	font-size: 120px;
+	justify-content: center;
+	align-items: center;
 }

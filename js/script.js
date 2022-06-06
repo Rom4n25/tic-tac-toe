@@ -37,12 +37,14 @@ const gameController = (() => {
         return false;
     };
 
-    function computerMove(marker){
+    function computerMove(){
+
+        const marker = getComputerMarker();
 
       while(true){
         let randomIndex = Math.round(Math.random()*8);
 
-        if(board[randomIndex]==undefined){
+        if(board[randomIndex]===undefined){
             board[randomIndex] = marker;
             displayController.computerPlaceMarker(randomIndex,marker);
             break;
@@ -56,31 +58,39 @@ const gameController = (() => {
         return Player().marker=="X"?"O":"X";
     }
 
+    function checkIfGameHasResult(){
+
+        if(checkWin()){
+            console.log("You WIN! " + Player().name);
+            return true;
+        }else if(board.filter(s=>s!=undefined).length==9){
+            console.log("TIE");
+            return true;
+        }else{
+            computerMove();
+                if(checkWin()){
+                console.log("Computer WIN!")
+                return true;
+                }
+        }
+        return false;
+    }
+
+    function playerMove(){
+        
+        if(board[this.id]===undefined){
+            displayController.playerPlaceMarker(this,Player().marker);
+            board[this.id] = Player().marker;
+            checkIfGameHasResult() ? displayController.markerBoxes.forEach(box => box.removeEventListener("click",playerMove)):false
+        }
+    }
+
     function startRound(){
         board = [];
         displayController.markerBoxes.forEach(box => box.textContent="");
-        
-        displayController.markerBoxes.forEach(box => box.addEventListener("click", () => {
-            if(board[box.id]==undefined){
-                displayController.playerPlaceMarker(box,Player().marker);
-                board[box.id] = Player().marker;
-            
-                if(checkWin()){
-                    console.log("You WIN! " + Player().name);
-                }else if(board.filter(s=>s!=undefined).length==9)
-                    console.log("TIE");
-                else{
-                    computerMove(getComputerMarker());
-
-                    if(checkWin()){
-                        console.log("Computer WIN!")
-                    }
-                }
-            }
-        }));
+        displayController.markerBoxes.forEach(box => box.addEventListener("click", playerMove));
     } 
 
-    return {startRound};
 })();
 
 const Player = () =>{

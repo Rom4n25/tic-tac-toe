@@ -1,5 +1,7 @@
 const displayController = (() => {    
 
+    const markerBoxes = document.querySelectorAll(".marker-box");
+
     const computerPlaceMarker = (boxId,marker) =>{
         const box = document.getElementById(boxId.toString());
         box.textContent = marker;
@@ -9,10 +11,13 @@ const displayController = (() => {
         box.textContent = marker;
     };
     
-    return {playerPlaceMarker,computerPlaceMarker};
+    return {playerPlaceMarker,computerPlaceMarker,markerBoxes};
 })();
 
-const game = (() => {
+const gameController = (() => {
+
+    const startBtn = document.getElementById("start");
+    startBtn.addEventListener("click",startRound);
 
     let board = [];
 
@@ -47,30 +52,25 @@ const game = (() => {
       } 
     }
 
-    function start(){
+    function getComputerMarker(){
+        return Player().marker=="X"?"O":"X";
+    }
+
+    function startRound(){
+        board = [];
+        displayController.markerBoxes.forEach(box => box.textContent="");
         
-        let computerMarker = "";
-
-        switch(Player().marker){
-            case "X" :  
-                computerMarker = "O";
-                break;
-            case "O" :  
-                computerMarker = "X";
-                break;
-        }
-
-        markerBoxes.forEach(box => box.addEventListener("click", () => {
+        displayController.markerBoxes.forEach(box => box.addEventListener("click", () => {
             if(board[box.id]==undefined){
                 displayController.playerPlaceMarker(box,Player().marker);
                 board[box.id] = Player().marker;
             
                 if(checkWin()){
-                    console.log("You WIN!")
+                    console.log("You WIN! " + Player().name);
                 }else if(board.filter(s=>s!=undefined).length==9)
                     console.log("TIE");
                 else{
-                    computerMove(computerMarker);
+                    computerMove(getComputerMarker());
 
                     if(checkWin()){
                         console.log("Computer WIN!")
@@ -80,15 +80,11 @@ const game = (() => {
         }));
     } 
 
-    const startBtn = document.getElementById("start");
-    startBtn.addEventListener("click",start);
-
-    const markerBoxes = document.querySelectorAll(".marker-box");
-
-    return {markerBoxes};
+    return {startRound};
 })();
 
 const Player = () =>{
     const marker = document.querySelector('input[name="marker"]:checked').value;
-    return{marker};
+    const name = document.getElementById("player_name").value;
+    return{marker,name};
 }

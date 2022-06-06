@@ -46,6 +46,43 @@ html,body{
     height: 100%;
 }
 
+header{
+	background-color: black;
+	height: 150px;
+}
+
+main{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.player-details{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	height: 300px;
+	width: 400px;
+	background-color: green;
+	top: 60px;
+	border-radius: 15px;
+	padding: 30px;
+}
+
+.btn-container{
+	padding: 30px;
+}
+
+#play_btn{
+	font-size: 28px;
+	padding: 10px 30px;
+	border-radius: 25px;
+	border: none;
+	cursor: pointer;
+}
+
 .game-board{
     display:grid;
     grid-template-columns: repeat(3,1fr);
@@ -62,4 +99,8 @@ html,body{
 	font-size: 120px;
 	justify-content: center;
 	align-items: center;
+}
+
+.hide{
+	display: none;
 }

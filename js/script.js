@@ -1,6 +1,9 @@
 const displayController = (() => {    
 
+    const playerDetails = document.querySelector(".player-details");
     const markerBoxes = document.querySelectorAll(".marker-box");
+    const playBtn = document.getElementById("play_btn");
+    playBtn.addEventListener("click", () => playerDetails.classList.remove("hide"));
 
     const computerPlaceMarker = (boxId,marker) =>{
         const box = document.getElementById(boxId.toString());
@@ -11,7 +14,7 @@ const displayController = (() => {
         box.textContent = marker;
     };
     
-    return {playerPlaceMarker,computerPlaceMarker,markerBoxes};
+    return {playerPlaceMarker,computerPlaceMarker,playerDetails,markerBoxes};
 })();
 
 const gameController = (() => {
@@ -86,6 +89,7 @@ const gameController = (() => {
     }
 
     function startRound(){
+        displayController.playerDetails.classList.add("hide");
         board = [];
         displayController.markerBoxes.forEach(box => box.textContent="");
         displayController.markerBoxes.forEach(box => box.addEventListener("click", playerMove));

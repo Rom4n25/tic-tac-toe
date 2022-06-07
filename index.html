@@ -9,20 +9,26 @@
 </head>
 <body>
     <header>
-
+        Tic Tac Toe
     </header>
     <main>
         <div class="btn-container">
             <button id="play_btn">Let's play!</button>
         </div>
         <div class="player-details hide">
-            <label for="name">Player name</label>
-            <input type="text" name="name" id="player_name">
-            <label for="X">X</label>
-            <input type="radio" name="marker" id="X" class="player_marker" value="X" required checked>
-            <label for="O">O</label>
-            <input type="radio" name="marker" id="O" class="player_marker" value="O" required>
-            <button id="start">Start</button>
+            <input type="text" placeholder="Type your name..." name="name" id="player_name">
+            <div class="radio-container">
+                <p>Select marker</p> 
+                <label for="X">
+                    <input type="radio" name="marker" id="X" class="player_marker" value="X" required checked>
+                    <img src="img/X.svg">
+                </label>
+                <label for="O">
+                    <input type="radio" name="marker" id="O" class="player_marker" value="O" required>
+                    <img src="img/O.svg">
+                </label>
+            </div>
+            <button id="start_btn">Start</button>
         </div>
         <div class="game-board">
             <div class="marker-box" id="0"></div>

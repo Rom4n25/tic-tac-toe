@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+*{
+	font-family: 'Pacifico', cursive;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -17,6 +23,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	font-family: 'Pacifico', cursive;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -44,11 +51,18 @@ table {
 
 html,body{
     height: 100%;
+	background-color: #eff7f6;
 }
 
 header{
-	background-color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #f2b5d4;
 	height: 150px;
+	font-size: 70px;
+	font-weight: 200;
+	color:rgba(0, 0, 0, 0.79);
 }
 
 main{
@@ -60,27 +74,77 @@ main{
 
 .player-details{
 	display: flex;
+	gap: 20px;
 	flex-direction: column;
 	align-items: center;
 	position: absolute;
 	height: 300px;
-	width: 400px;
-	background-color: green;
+	width: 350px;
+	background-color: #f2b5d4;
 	top: 60px;
+	border-radius: 25px;
+	padding: 60px;
+}
+
+.player-details p{
+	font-size: 36px;
+	text-align: center;
+}
+
+.radio-container{
+	margin-top: 10px;
+}
+
+label{
+	font-size: 26px;
+}
+
+input{
+	font-size: 26px;
 	border-radius: 15px;
-	padding: 30px;
+	border: none;
+}
+
+[type=radio] { 
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+  
+[type=radio] + img {
+	cursor: pointer;
+	width: 90px;
+	height: 90px;
+	margin: 10px;
+	margin-top: 20px;
+}
+
+[type=radio]:checked + img {
+	outline: 5px solid #7bdff2;
+	outline-offset: 5px;
 }
 
 .btn-container{
 	padding: 30px;
 }
 
-#play_btn{
+#start_btn{
 	font-size: 28px;
 	padding: 10px 30px;
 	border-radius: 25px;
 	border: none;
 	cursor: pointer;
+	background-color: #7bdff2;
+}
+
+#play_btn{
+	font-size: 18px;
+	padding: 5px 30px;
+	border-radius: 25px;
+	border: none;
+	cursor: pointer;
+	background-color: #7bdff2;
 }
 
 .game-board{
@@ -89,16 +153,21 @@ main{
     grid-template-rows: repeat(3,1fr);
     height: 500px;
     width: 500px;
-    border: 1px solid black;
 }
 
 .marker-box{
 	display:flex;
-    background-color: orange;
-    border: 1px solid black;
+	margin: 2px;
+    background-color: #b2f7ef;
+	color: #f2b5d4;
 	font-size: 120px;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
+}
+
+.marker-box:hover{
+	background-color: #7bdff2;
 }
 
 .hide{

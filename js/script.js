@@ -19,7 +19,7 @@ const displayController = (() => {
 
 const gameController = (() => {
 
-    const startBtn = document.getElementById("start");
+    const startBtn = document.getElementById("start_btn");
     startBtn.addEventListener("click",startRound);
 
     let board = [];

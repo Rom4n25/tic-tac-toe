@@ -84,6 +84,8 @@ main{
 	top: 60px;
 	border-radius: 25px;
 	padding: 60px;
+	transform: scale(1);
+	transition: transform 300ms;
 }
 
 .player-details p{
@@ -103,6 +105,8 @@ input{
 	font-size: 26px;
 	border-radius: 15px;
 	border: none;
+	text-indent: 10px;
+	padding: 8px;
 }
 
 [type=radio] { 
@@ -139,12 +143,20 @@ input{
 }
 
 #play_btn{
-	font-size: 18px;
+	font-size: 28px;
 	padding: 5px 30px;
 	border-radius: 25px;
 	border: none;
 	cursor: pointer;
 	background-color: #7bdff2;
+	color: rgba(0, 0, 0, 0.801);
+	transition: transform 250ms;
+	transform: scale(1);
+}
+
+#play_btn:hover{
+	background-color: #f2b5d4;
+	transform: scale(1.2);
 }
 
 .game-board{
@@ -155,21 +167,32 @@ input{
     width: 500px;
 }
 
+.output_text{
+	width: 500px;
+	margin-top: 10px;
+	font-size: 27px;
+}
+
 .marker-box{
 	display:flex;
 	margin: 2px;
     background-color: #b2f7ef;
 	color: #f2b5d4;
-	font-size: 120px;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+	font-size: 0px;
+	transition: all 0.5s cubic-bezier(.17,.67,.66,1.68);
 }
 
 .marker-box:hover{
 	background-color: #7bdff2;
 }
 
+.selected{
+	font-size: 120px;
+}
+
 .hide{
-	display: none;
+	transform: scale(0);
 }

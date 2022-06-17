@@ -8,10 +8,12 @@ const displayController = (() => {
     const computerPlaceMarker = (boxId,marker) =>{
         const box = document.getElementById(boxId.toString());
         box.textContent = marker;
+        box.classList.add("selected");
     }
 
     const playerPlaceMarker = (box,marker) =>{
         box.textContent = marker;
+        box.classList.add("selected");
     };
     
     return {playerPlaceMarker,computerPlaceMarker,playerDetails,markerBoxes};
@@ -64,15 +66,15 @@ const gameController = (() => {
     function checkIfGameHasResult(){
 
         if(checkWin()){
-            console.log("You WIN! " + Player().name);
+            document.querySelector(".output_text").textContent = Player().name + "!, You won! Play Again!";
             return true;
         }else if(board.filter(s=>s!=undefined).length==9){
-            console.log("TIE");
+            document.querySelector(".output_text").textContent = "Tie! Play Again!";
             return true;
         }else{
-            computerMove();
+            setTimeout(computerMove,800);
                 if(checkWin()){
-                console.log("Computer WIN!")
+                document.querySelector(".output_text").textContent = "Computer won Play Again!";
                 return true;
                 }
         }
@@ -89,10 +91,12 @@ const gameController = (() => {
     }
 
     function startRound(){
+        document.querySelector(".output_text").textContent = "";
         displayController.playerDetails.classList.add("hide");
         board = [];
         displayController.markerBoxes.forEach(box => box.textContent="");
         displayController.markerBoxes.forEach(box => box.addEventListener("click", playerMove));
+        displayController.markerBoxes.forEach(box => box.classList.remove("selected"));
     } 
 
 })();
